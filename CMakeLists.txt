@@ -64,7 +64,7 @@ target_include_directories(perfetto PUBLIC
 set_target_properties(perfetto PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 
 if (WIN32)
-    target_compile_definitions(perfetto PRIVATE NOMINMAX=1 WIN32_LEAN_AND_MEAN=1)
+    target_compile_definitions(perfetto PUBLIC NOMINMAX=1 WIN32_LEAN_AND_MEAN=1)
 endif()
 
 if (MSVC)
