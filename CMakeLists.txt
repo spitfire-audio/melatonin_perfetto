@@ -71,10 +71,16 @@ if (MSVC)
     target_compile_options(perfetto
         PRIVATE
             /bigobj # only needed for compilation of perfetto itself
+            /wd4267 # silence C4267 warning
+                    # perfetto.cc(41285): warning C4267: '=': conversion from 'size_t' to 'uint8_t' 
+                    # perfetto.cc(51874): warning C4267: 'initializing': conversion from 'size_t' to '_Ty2', possible loss of data
+            /wd4996 # silence C4996 warning
+                    # perfetto.cc(45932): warning C4996: 'std::atomic_store_explicit': warning STL4029
+                    # perfetto.cc(47835): warning C4996: 'std::atomic_load_explicit': warning STL4029
         PUBLIC
             /Zc:__cplusplus # we need the correct value of the __cplusplus macro
             /permissive- # see https://github.com/google/perfetto/issues/214
-        )
+    )
 endif ()
 
 add_library(perfetto::perfetto ALIAS perfetto)
