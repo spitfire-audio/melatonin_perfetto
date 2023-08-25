@@ -31,7 +31,9 @@ PERFETTO_DEFINE_CATEGORIES (
     perfetto::Category ("component")
         .SetDescription ("Component"),
     perfetto::Category ("dsp")
-        .SetDescription ("dsp"));
+        .SetDescription ("dsp"),
+    perfetto::Category ("stream")
+        .SetDescription ("Streaming"));
 
 class MelatoninPerfetto
 {
@@ -241,6 +243,9 @@ namespace melatonin
     #define TRACE_COMPONENT(...)                                                                                                      \
         constexpr auto pf = melatonin::compileTimePrettierFunction (WRAP_COMPILE_TIME_STRING (PERFETTO_DEBUG_FUNCTION_IDENTIFIER())); \
         TRACE_EVENT ("component", perfetto::StaticString (pf.data()), ##__VA_ARGS__)
+    #define TRACE_STREAM(...)                                                                                                      \
+        constexpr auto pf = melatonin::compileTimePrettierFunction (WRAP_COMPILE_TIME_STRING (PERFETTO_DEBUG_FUNCTION_IDENTIFIER())); \
+        TRACE_EVENT ("stream", perfetto::StaticString (pf.data()), ##__VA_ARGS__)
 
 #else // if PERFETTO
     #define TRACE_EVENT_BEGIN(category, ...)
