@@ -233,6 +233,11 @@ namespace melatonin
     }
 }
 
+#if JUCE_MAC
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wgnu"
+#endif
+
     // Et voilà! Our nicer macros.
     // This took > 20 hours, hope the DX is worth it...
     // The separate constexpr calls are required for `compileTimePrettierFunction` to remain constexpr
@@ -246,6 +251,10 @@ namespace melatonin
     #define TRACE_STREAM(...)                                                                                                      \
         constexpr auto pf = melatonin::compileTimePrettierFunction (WRAP_COMPILE_TIME_STRING (PERFETTO_DEBUG_FUNCTION_IDENTIFIER())); \
         TRACE_EVENT ("stream", perfetto::StaticString (pf.data()), ##__VA_ARGS__)
+
+#if JUCE_MAC
+#pragma GCC diagnostic pop
+#endif
 
 #else // if PERFETTO
     #define TRACE_EVENT_BEGIN(category, ...)
