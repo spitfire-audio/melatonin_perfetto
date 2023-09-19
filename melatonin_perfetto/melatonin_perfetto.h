@@ -83,6 +83,11 @@ public:
         return juce::File::getSpecialLocation (juce::File::SpecialLocationType::userHomeDirectory).getChildFile ("Downloads");
     #endif
     }
+    
+    void setAdditionalFilenameTag (juce::StringRef tag)
+    {
+        additionalFilenameTag = tag;
+    }
 
 private:
     MelatoninPerfetto()
@@ -110,7 +115,7 @@ private:
     #endif
 
         const auto currentTime = juce::Time::getCurrentTime().formatted ("%Y-%m-%d_%H%M");
-        const auto childFile = file.getChildFile ("perfetto" + mode + currentTime + ".pftrace");
+        const auto childFile = file.getChildFile ("perfetto" + mode + currentTime + additionalFilenameTag + ".pftrace");
 
         if (auto output = childFile.createOutputStream())
         {
@@ -128,6 +133,7 @@ private:
     }
 
     std::unique_ptr<perfetto::TracingSession> session;
+    juce::String additionalFilenameTag;
 };
 
 /*
