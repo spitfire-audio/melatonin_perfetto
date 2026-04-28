@@ -37,7 +37,7 @@ message (STATUS "Cloning Perfetto...")
 
 FetchContent_Declare(Perfetto
     GIT_REPOSITORY https://android.googlesource.com/platform/external/perfetto
-    GIT_TAG v33.1
+    GIT_TAG v46.0
     GIT_SHALLOW TRUE
     GIT_PROGRESS TRUE)
 
